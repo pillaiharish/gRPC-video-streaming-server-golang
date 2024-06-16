@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "video-streaming-server-golang/videostream";
+
+package videostream;
+
+service VideoStream {
+  rpc StreamVideo (VideoRequest) returns (stream VideoResponse);
+}
+
+message VideoRequest {
+  string filename = 1;
+}
+
+message VideoResponse {
+  bytes data = 1;
+}
