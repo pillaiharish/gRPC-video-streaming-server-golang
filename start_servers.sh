@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the video folder environment variable
-export VIDEO_FOLDER="/Users/harishkumarpillai/.uploads"
+export VIDEO_DIRECTORY="/Users/harishkumarpillai/series"
 
 # Start the gRPC server
 echo "Starting gRPC server..."
@@ -19,3 +19,4 @@ http_pid=$!
 # Wait for both servers to exit
 wait $grpc_pid
 wait $http_pid
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming</title>
+</head>
+<body>
+    <h1>Video Streaming</h1>
+    <div id="video-list"></div>
+    <video id="video-player" controls width="640" height="480">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        async function loadVideos() {
+            const response = await fetch('/videos');
+            const videoList = await response.text();
+            document.getElementById('video-list').innerHTML = videoList;
+
+            document.querySelectorAll('#video-list a').forEach(link => {
+                link.addEventListener('click', event => {
+                    event.preventDefault();
+                    const videoSrc = event.target.href;
+                    document.getElementById('video-player').src = videoSrc;
+                });
+            });
+        }
+
+        loadVideos();
+    </script>
+</body>
+</html>

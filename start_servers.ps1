@@ -1,5 +1,5 @@
 # Set the video folder environment variable
-$env:VIDEO_FOLDER = "D:\19\uploads"
+$env:VIDEO_DIRECTORY = "D:\19\uploads"
 
 # Start the gRPC server
 Write-Output "Starting gRPC server..."

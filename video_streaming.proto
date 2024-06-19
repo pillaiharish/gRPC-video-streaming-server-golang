@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "video-streaming-server-golang/videostreaming";
+package videostreaming;
+
+service VideoStreamingService {
+    rpc StreamVideo (VideoRequest) returns (stream VideoChunk) {}
+    rpc ListVideos (Empty) returns (VideoList) {}
+}
+
+message VideoRequest {
+    string video_name = 1;
+}
+
+message VideoChunk {
+    bytes content = 1;
+}
+
+message Empty {}
+
+message VideoList {
+    repeated string video_names = 1;
+}

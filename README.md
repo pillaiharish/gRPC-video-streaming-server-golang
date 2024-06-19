@@ -25,7 +25,10 @@ Run the protoc command again with the updated .proto file:
 protoc --go_out=. --go-grpc_out=. -I=. video_stream.proto
 ```
 
-
+###  video_streaming.proto is the latest proto that is being used in the code
+```bash
+protoc --go_out=. --go-grpc_out=. -I=. video_streaming.proto
+```
 
 ## Running the Servers
 
@@ -55,7 +58,7 @@ After setting the variable, you can run your script:
 2. **Temporary Environment Variable**
 You can set an environment variable for the current PowerShell session by using the $env command:
 ```powershell
-You can set an environment variable for the current PowerShell session by using the $env command:
+$env:VIDEO_FOLDER = "D:\19\uploads"
 ```
 To set the environment variable permanently, you can use the System Properties dialog or set it via PowerShell. 
 In Advanced system settings click on the Environment Variables button.
