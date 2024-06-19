@@ -13,7 +13,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             background-color: #f4f4f4;
         }
         h1 {
@@ -21,22 +21,25 @@
         }
         #container {
             display: flex;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            width: 80%;
+            width: 100%;
             max-width: 1000px;
         }
         #video-list {
-            margin-right: 20px;
+            margin-bottom: 20px;
             background: white;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
         }
         #video-player {
-            width: 640px;
-            height: 360px;
+            width: 100%;
+            max-width: 640px;
             background: black;
         }
         select {
@@ -58,6 +61,19 @@
         }
         button:hover {
             background: #0056b3;
+        }
+        @media (min-width: 768px) {
+            #container {
+                flex-direction: row;
+            }
+            #video-list {
+                margin-right: 20px;
+                margin-bottom: 0;
+            }
+            #video-player {
+                max-width: 640px;
+                height: auto;
+            }
         }
     </style>
 </head>

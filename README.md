@@ -76,3 +76,37 @@ After setting the variable, you can run your script:
 ```powershell
 .\start_servers.ps1
 ```
+
+## Running grpcurl to get the encoded data from video
+```bash
+harish $ grpcurl -plaintext -d '{"video_name": "data1.mp4"}' localhost:50051 videostreaming.VideoStreamingService/StreamVideo
+{
+  "content": "AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAA9ULbW9vdgAAAGxtdmhkAAAAAAAAAAAAAAAAAAAD6AAD4KgAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwABhaB0cmFrAAAAXHRraGQAAAADAAAAAAAAAAAAAAABAAAAAAAD4KgAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAA1VVVQHgAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAA+CoAAAEAAABAAAAAYUYbWRpYQAAACBtZGhkAAAAAAAAAAAAAAAAAAAyAAAxogBVxAAAAAAALWhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAGEw21pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQABhINzdGJsAAAAq3N0c2QAAAAAAAAAAQAAAJthdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA1QB4ABIAAAASAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGP//AAAANWF2Y0MBZAge/+EAHmdkCB6s2UDYPef/8CgAJ/EAAAMAAQAAAwAyDxYtlgEABGjq58sAAAAQcGFzcAAAAoAAAAJ/AAAAGHN0dHMAAAAAAAAAAQAAGNEAAAIAAAABoHN0c3MAAAAAAAAAZAAAAAEAAABWAAAA0wAAAOoAAAEcAAABmQAAAc4AAAJGAAACgAAAArMAAAL4AAADdQAAA/IAAARvAAAEtgAABTMAAAVgAAAFjQAABdMAAAYeAAAGRQAABqMAAAbEAAAG0wAABv4AAAc4AAAHWQAAB5UAAAgSAAAIjwAACNsAAAkZAAAJRgAACYYAAAmoAAAJ8QAACiQAAAqYAAAK2QAACuYAAAr4AAALKAAAC6UAAAwiAAAMiQAADMYAAA0oAAANlgAADfIAAA5vAAAO7AAAD0gAAA/FAAAP2QAAED8AABCHAAAQzAAAETAAABFNAAARuQAAEhIAABJLAAAShAAAErgAABLlAAATCwAAEywAABOVAAAT2gAAFBMAABRCAAAUdAAAFKcAABTQAAAVDgAAFVgAABVrAAAVeAAAFZEAABWgAAAVsAAAFcAAABXSAAAV4QAAFjcAABZwAAAWgAAAFowAABaxAAAWwAAAFswAABbxAAAXAA=="
+}
+{...}
+```
+Breakdown of the command:
+```-plaintext```: Indicates that the server does not use TLS.
+
+```-d '{"video_name": "data1.mp4"}'```: The JSON payload sent to the StreamVideo RPC, where "video_name" should match the field name defined in the .proto file.
+
+localhost:50051: The address of the gRPC server.
+
+videostreaming.VideoStreamingService/StreamVideo: The full name of the RPC method in the VideoStreamingService.
+
+
+## To verify the available methods and services, we can also run:
+```bash
+harish $ grpcurl -plaintext localhost:50051 list
+grpc.reflection.v1.ServerReflection
+grpc.reflection.v1alpha.ServerReflection
+videostreaming.VideoStreamingService
+```
+
+## And to see the methods within a specific service:
+```bash
+harish $ grpcurl -plaintext localhost:50051 list videostreaming.VideoStreamingService
+videostreaming.VideoStreamingService.ListVideos
+videostreaming.VideoStreamingService.StreamVideo
+```
+

@@ -4,28 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Streaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        #container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            width: 80%;
+            max-width: 1000px;
+        }
+        #video-list {
+            margin-right: 20px;
+            background: white;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #video-player {
+            width: 640px;
+            height: 360px;
+            background: black;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>Video Streaming</h1>
-    <div id="video-list"></div>
-    <video id="video-player" controls width="640" height="480">
-        Your browser does not support the video tag.
-    </video>
+    <div id="container">
+        <div id="video-list">
+            <select id="video-select">
+                <option value="">Select a video</option>
+            </select>
+            <button id="play-button">Play Video</button>
+        </div>
+        <video id="video-player" controls>
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
     <script>
         async function loadVideos() {
             const response = await fetch('/videos');
             const videoList = await response.text();
-            document.getElementById('video-list').innerHTML = videoList;
+            const select = document.getElementById('video-select');
 
-            document.querySelectorAll('#video-list a').forEach(link => {
-                link.addEventListener('click', event => {
-                    event.preventDefault();
-                    const videoSrc = event.target.href;
-                    document.getElementById('video-player').src = videoSrc;
-                });
+            // Populate the dropdown with video options
+            videoList.split('<br>').forEach(item => {
+                if (item.trim()) {
+                    const videoName = item.match(/>(.*)</)[1];
+                    const option = document.createElement('option');
+                    option.value = item.match(/href="([^"]*)"/)[1];
+                    option.textContent = videoName;
+                    select.appendChild(option);
+                }
             });
         }
+
+        document.getElementById('play-button').addEventListener('click', () => {
+            const select = document.getElementById('video-select');
+            const videoSrc = select.value;
+            if (videoSrc) {
+                document.getElementById('video-player').src = videoSrc;
+            } else {
+                alert('Please select a video');
+            }
+        });
 
         loadVideos();
     </script>
