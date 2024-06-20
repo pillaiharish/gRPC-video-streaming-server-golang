@@ -1,5 +1,5 @@
 # video-streaming-server-golang
-Play the video from a path to browser
+Play the video from a path to browser. This will stream the video non stop, play pause is supported but since grpc is streaming video there is a challenge to handle seeking forward and backward explicitly. Typical HTTP video streaming protocols like HLS or DASH support this feature inherently by segmenting the video, which is not supported in this code.
 
 
 ### Creating protobuf
@@ -110,3 +110,5 @@ videostreaming.VideoStreamingService.ListVideos
 videostreaming.VideoStreamingService.StreamVideo
 ```
 
+## Screenshot for Videoplayer mobile browser
+![Screeshot for mobile](https://github.com/pillaiharish/video-streaming-server-golang/blob/main/screen-capture-mobile.jpeg)

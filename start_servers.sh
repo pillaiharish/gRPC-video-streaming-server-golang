@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the video folder environment variable
-export VIDEO_DIRECTORY="/Users/harishkumarpillai/series"
+export VIDEO_DIRECTORY="/Users/harishkumarpillai/stock_videos"
 
 # Start the gRPC server
 echo "Starting gRPC server..."

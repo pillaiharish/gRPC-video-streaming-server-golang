@@ -37,6 +37,12 @@
             width: 100%;
             max-width: 600px;
         }
+        #video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
         #video-player {
             width: 100%;
             max-width: 640px;
@@ -50,7 +56,6 @@
             margin-bottom: 10px;
         }
         button {
-            width: 100%;
             padding: 10px;
             background: #007bff;
             color: white;
@@ -78,7 +83,7 @@
     </style>
 </head>
 <body>
-    <h1>Video Streaming</h1>
+    <h1>gRPC Video Streaming</h1>
     <div id="container">
         <div id="video-list">
             <select id="video-select">
@@ -86,9 +91,15 @@
             </select>
             <button id="play-button">Play Video</button>
         </div>
-        <video id="video-player" controls>
-            Your browser does not support the video tag.
-        </video>
+        <div>
+            <video id="video-player" controls>
+                Your browser does not support the video tag.
+            </video>
+            <div id="video-controls">
+                <button id="backward-button">Backward 10s</button>
+                <button id="forward-button">Forward 10s</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -117,6 +128,16 @@
             } else {
                 alert('Please select a video');
             }
+        });
+
+        document.getElementById('backward-button').addEventListener('click', () => {
+            const video = document.getElementById('video-player');
+            video.currentTime = Math.max(0, video.currentTime - 10);
+        });
+
+        document.getElementById('forward-button').addEventListener('click', () => {
+            const video = document.getElementById('video-player');
+            video.currentTime = Math.min(video.duration, video.currentTime + 10);
         });
 
         loadVideos();
